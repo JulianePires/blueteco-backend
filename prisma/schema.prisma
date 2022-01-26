@@ -1,0 +1,81 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  MANAGER
+  CHEF
+  COOKER
+  SOUSCHEF
+  SOMMELIER
+  WAITER
+  OTHER
+}
+
+enum Category {
+  APPETIZER
+  ENTRANCE
+  MAIN
+  SALAD
+  WINE
+  DRINK
+  BEER
+  NONALCOHOLIC
+  OTHER
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  birthday  String
+  password  String
+  role      Role     @default(OTHER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Table Table[]
+  @@map("user")
+}
+
+model Item {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  price     Decimal  @default(0.0)
+  category  Category @default(OTHER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  ItensOnTables ItensOnTables[]
+  @@map("item")
+}
+
+model Table {
+  id      String  @id @default(uuid())
+  user    User    @relation(fields: [userId], references: [id])
+  userId  String
+  couvert Boolean? @default(false)
+  service Boolean? @default(false)
+
+  ItensOnTables ItensOnTables[]
+  @@map("table")
+}
+
+model ItensOnTables {
+  item       Item     @relation(fields: [itemId], references: [id])
+  itemId     String
+  table      Table    @relation(fields: [tableId], references: [id])
+  tableId    String
+  assignedAt DateTime @default(now())
+  assignedBy String
+
+  @@id([itemId, tableId])
+}
