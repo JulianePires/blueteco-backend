@@ -21,11 +21,11 @@ export class UserService {
     });
 
     if (userEmailExists) {
-      throw new ConflictException('Email já cadastrado');
+      throw new ConflictException('Email already exists');
     }
 
     if (createUserDto.password !== createUserDto.passwordConfirmation) {
-      throw new ConflictException('Senhas digitadas não conferem');
+      throw new ConflictException('Passwords did not match');
     }
 
     delete createUserDto.passwordConfirmation;
@@ -61,9 +61,9 @@ export class UserService {
       },
     });
 
-    const updatedUsers = users.map(
-      (user) => (user = { ...user, role: UserRole[user.role] }),
-    );
+    const updatedUsers = users.map((user) => {
+      return { ...user, role: UserRole[user.role] };
+    });
 
     return updatedUsers;
   }
