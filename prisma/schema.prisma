@@ -33,9 +33,15 @@ enum Category {
   OTHER
 }
 
+enum State {
+  OPEN
+  CLOSED
+}
+
 model User {
   id        String   @id @default(uuid())
-  name      String   @unique
+  name      String
+  email     String   @unique
   birthDate String
   password  String
   role      Role     @default(OTHER)
@@ -54,7 +60,6 @@ model Item {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  ItensOnTables ItensOnTables[]
   @@map("item")
 }
 
@@ -64,18 +69,8 @@ model Table {
   userId  String
   couvert Boolean? @default(false)
   service Boolean? @default(false)
+  state   State    @default(CLOSED)
+  items   String[]
 
-  ItensOnTables ItensOnTables[]
   @@map("table")
-}
-
-model ItensOnTables {
-  item       Item     @relation(fields: [itemId], references: [id])
-  itemId     String
-  table      Table    @relation(fields: [tableId], references: [id])
-  tableId    String
-  assignedAt DateTime @default(now())
-  assignedBy String
-
-  @@id([itemId, tableId])
 }

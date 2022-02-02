@@ -1,36 +1,29 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
-  IsEmail,
   IsEnum,
   IsNotEmpty,
+  IsNumber,
   IsOptional,
   IsString,
 } from 'class-validator';
-import { UserRole } from 'src/shared/enums';
+import { ItemCategory } from 'src/shared/enums';
 
-export class UpdateUserDto {
+export class UpdateItemDto {
   @IsString()
   @IsNotEmpty()
   @IsOptional()
   @ApiProperty()
   name: string;
 
-  @IsString()
+  @IsNumber({ maxDecimalPlaces: 2 })
   @IsNotEmpty()
   @IsOptional()
-  @IsEmail()
   @ApiProperty()
-  email: string;
+  price: number;
 
-  @IsString()
-  @IsNotEmpty()
-  @IsOptional()
+  @IsEnum(ItemCategory)
   @ApiProperty()
-  birthDate: string;
-
-  @IsEnum(UserRole)
-  @IsNotEmpty()
   @IsOptional()
-  @ApiProperty()
-  role: UserRole;
+  @IsNotEmpty()
+  category: ItemCategory;
 }
