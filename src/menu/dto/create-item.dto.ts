@@ -23,12 +23,4 @@ export class CreateItemDto {
   @ApiProperty()
   @IsNotEmpty()
   category: ItemCategory;
-
-  @IsDate()
-  @IsNotEmpty()
-  createdAt: Date;
-
-  @IsDate()
-  @IsNotEmpty()
-  updatedAt: Date;
 }
