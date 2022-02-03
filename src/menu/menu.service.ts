@@ -139,7 +139,7 @@ export class MenuService {
         price: Number(deletedItem.price),
         category: ItemCategory[deletedItem.category],
       },
-      message: 'Item updated successfully',
+      message: 'Item deleted successfully',
     };
   }
 }

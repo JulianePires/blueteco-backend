@@ -51,7 +51,7 @@ export class MenuController {
     return this.menuService.findItem(itemId);
   }
 
-  @Patch()
+  @Patch(':id')
   @UseGuards(AuthGuard())
   @ApiOperation({
     summary: 'Atualizar item do menu',
@@ -64,7 +64,7 @@ export class MenuController {
     return this.menuService.update(itemId, updateItemDto);
   }
 
-  @Delete()
+  @Delete(':id')
   @UseGuards(AuthGuard())
   @ApiOperation({
     summary: 'Deletar item do menu',

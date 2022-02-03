@@ -20,3 +20,8 @@ export enum ItemCategory {
   NONALCOHOLIC = 'NONALCOHOLIC',
   OTHER = 'OTHER',
 }
+
+export enum States {
+  OPEN = 'OPEN',
+  CLOSED = 'CLOSED',
+}

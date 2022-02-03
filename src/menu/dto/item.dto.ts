@@ -4,12 +4,14 @@ import {
   IsNotEmpty,
   IsNumber,
   IsString,
+  IsUUID,
 } from 'class-validator';
 import { ItemCategory } from 'src/shared/enums';
 
 export class ItemDto {
   @IsString()
   @IsNotEmpty()
+  @IsUUID()
   id: string;
 
   @IsString()
